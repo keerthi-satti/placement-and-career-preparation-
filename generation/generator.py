@@ -387,7 +387,8 @@ def _stub_experience_questions(
 ) -> list[Question]:
     """Generate stub experience-based questions for testing."""
     questions = []
-    for exp in experiences[:5]:
+    difficulties = [Difficulty.EASY, Difficulty.MEDIUM, Difficulty.HARD]
+    for i, exp in enumerate(experiences[:5]):
         # Find a matching chunk by skills
         matching_chunk = None
         for chunk in chunks:
@@ -401,13 +402,14 @@ def _stub_experience_questions(
         if matching_chunk is None:
             continue
 
+        diff = difficulties[i % 3]
         questions.append(
             Question(
                 id=_generate_id(),
                 text=f"Based on interview experiences at {exp.company}: {exp.question_text[:80]}... How would you approach this given your background?",
                 hint=f"Relate to your experience with {', '.join(exp.skills)}.",
                 type=QuestionType.EXPERIENCE,
-                difficulty=Difficulty.HARD,
+                difficulty=diff,
                 project_id=None,
                 evidence=[
                     Evidence(kind=EvidenceKind.CHUNK, ref_id=matching_chunk.chunk_id, quote=matching_chunk.text[:100]),
@@ -638,7 +640,7 @@ def generate_more(
     existing_ids = {q.id for q in existing_questions}
     new_questions = [q for q in new_questions if q.id not in existing_ids]
 
-    # 2. Remove semantically similar questions
+    # 2. Remove semantically similar questions (plan: "not reworded")
     deduped = []
     for new_q in new_questions:
         is_repeat = False
@@ -649,6 +651,21 @@ def generate_more(
         if not is_repeat:
             deduped.append(new_q)
     new_questions = deduped
+
+    # 3. Remove same-evidence repeats (plan: "same-evidence repeats")
+    # A new question that cites the exact same evidence as an existing one
+    # is a repeat, even if the question text differs.
+    existing_evidence_sigs = set()
+    for q in existing_questions:
+        sig = tuple(sorted((ev.kind.value, ev.ref_id) for ev in q.evidence))
+        existing_evidence_sigs.add(sig)
+
+    no_evidence_repeats = []
+    for new_q in new_questions:
+        sig = tuple(sorted((ev.kind.value, ev.ref_id) for ev in new_q.evidence))
+        if sig not in existing_evidence_sigs:
+            no_evidence_repeats.append(new_q)
+    new_questions = no_evidence_repeats
 
     # --- Evidence check on new questions ---
     valid_new = filter_valid_questions(new_questions, chunk_map, exp_map)

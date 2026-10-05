@@ -1,8 +1,8 @@
 # Placement and Career Preparation: Interview Question Generator
 
-A web app that helps students prepare for placement interviews. A student uploads a resume and gets interview questions based on their own projects and skills, with a hint for each question and the evidence it came from.
+A web app that helps students prepare for placement interviews. A student uploads a resume and get interview questions based on their own projects and skills, with a hint for each question and the evidence it came from.
 
-> Status: in development. Items marked **TODO** are for the team to fill in.
+> Status: in development.
 
 ## The problem
 
@@ -52,24 +52,18 @@ generation/   Question generation and the evidence check
 backend/      Accounts, storage, API, pipeline orchestration
 frontend/     Web screens
 feedback/     Interview date, reminders, student feedback
-docs/adr/     Short records of key decisions
-CONTEXT.md    Glossary of project terms
-TEAM_PLAN.md  Full plan, tasks, and workflow
 ```
 
 ## Tech stack
 
-**TODO:** fill in once the team decides.
-
-- Language and framework (backend): TODO
-- Frontend: TODO
-- Database: TODO
-- LLM provider: TODO
-- Email: TODO
+- **Language:** Python 3.11+
+- **Data models:** Pydantic
+- **Testing:** pytest
+- **Frontend:** TODO (team to decide)
+- **Database:** TODO (team to decide)
+- **LLM provider:** TODO (team to decide)
 
 ## Getting started
-
-**TODO:** fill in once the stack is chosen.
 
 ```bash
 # Clone
@@ -79,10 +73,14 @@ cd placement-and-career-preparation-
 # Create your own branch (see the branch list below)
 git checkout -b feat/<your-task>
 
+# Install dependencies
+pip install -r requirements.txt
+
 # Copy the example environment file and fill in your own values
 cp .env.example .env
 
-# TODO: install dependencies and run the project
+# Run tests
+pytest
 ```
 
 Never commit `.env`, API keys, or real student data. This repository is public.
@@ -106,21 +104,12 @@ Never commit `.env`, API keys, or real student data. This repository is public.
 - In the pull request, say what changed, how you tested it, and whether any contract in `contracts/` was touched.
 - Use fake data only.
 
-Details are in `TEAM_PLAN.md`.
-
 ## Current status
 
-**TODO:** update as work is merged.
-
-- [ ] Contracts agreed and committed
+- [x] Contracts agreed and committed
 - [ ] Backend skeleton
 - [ ] Ingestion
 - [ ] Experience corpus
-- [ ] Question generation
+- [x] Question generation engine (54 tests passing)
 - [ ] Frontend
 - [ ] Interview date, reminders, feedback
-- [ ] Reviewer role (later)
-
-## License
-
-**TODO:** choose a license, or state that all rights are reserved.

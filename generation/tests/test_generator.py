@@ -310,6 +310,35 @@ class TestGenerateMoreStub:
                 # Questions should be genuinely different, not just reworded
                 assert new_q.text != existing_q.text
 
+    def test_no_same_evidence_repeats(self, project_contexts, experiences, skills):
+        """New questions should not cite the exact same evidence combination as existing ones."""
+        initial = generate_questions(project_contexts, experiences, skills)
+        result = generate_more(initial.questions, project_contexts, experiences, skills)
+
+        def evidence_sig(q):
+            return tuple(sorted((ev.kind.value, ev.ref_id) for ev in q.evidence))
+
+        existing_sigs = {evidence_sig(q) for q in initial.questions}
+        for new_q in result.questions:
+            assert evidence_sig(new_q) not in existing_sigs
+
+    def test_exhaustion_after_multiple_rounds(self, project_contexts, experiences, skills):
+        """After enough rounds of generate_more, should eventually be exhausted."""
+        initial = generate_questions(project_contexts, experiences, skills)
+        all_questions = list(initial.questions)
+        exhausted = False
+        for _ in range(20):
+            result = generate_more(all_questions, project_contexts, experiences, skills)
+            if result.exhausted:
+                exhausted = True
+                break
+            if not result.questions:
+                # No more questions but not flagged exhausted - also acceptable
+                break
+            all_questions.extend(result.questions)
+        # Should have found exhaustion or run out of new questions
+        assert exhausted or len(result.questions) == 0
+
 
 class TestGenerateMoreLLM:
     """Tests for generate_more with a mock LLM."""
@@ -325,3 +354,15 @@ class TestGenerateMoreLLM:
         existing_ids = {q.id for q in initial.questions}
         for q in result.questions:
             assert q.id not in existing_ids
+
+    def test_llm_generate_more_no_same_evidence(self, project_contexts, experiences, skills, mock_llm):
+        """LLM generate_more should not produce same-evidence repeats."""
+        initial = generate_questions(project_contexts, experiences, skills, llm_caller=mock_llm)
+        result = generate_more(initial.questions, project_contexts, experiences, skills, llm_caller=mock_llm)
+
+        def evidence_sig(q):
+            return tuple(sorted((ev.kind.value, ev.ref_id) for ev in q.evidence))
+
+        existing_sigs = {evidence_sig(q) for q in initial.questions}
+        for new_q in result.questions:
+            assert evidence_sig(new_q) not in existing_sigs
