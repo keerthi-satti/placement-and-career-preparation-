@@ -111,6 +111,21 @@ class TestCheckQuestionEvidence:
         )
         assert check_question_evidence(q, sample_chunks, sample_experiences) is False
 
+    def test_partial_quote_match(self, sample_chunks, sample_experiences):
+        """A quote that is a substring of the source should pass."""
+        q = _make_question(
+            evidence=[{"kind": "chunk", "ref_id": "p1-readme-01", "quote": "React frontend"}]
+        )
+        assert check_question_evidence(q, sample_chunks, sample_experiences) is True
+
+    def test_empty_quote(self, sample_chunks, sample_experiences):
+        """An empty quote should technically match (empty string is in everything)."""
+        q = _make_question(
+            evidence=[{"kind": "chunk", "ref_id": "p1-readme-01", "quote": ""}]
+        )
+        # Empty quote normalized is "", which is in any text
+        assert check_question_evidence(q, sample_chunks, sample_experiences) is True
+
 
 class TestFilterValidQuestions:
     def test_filters_out_invalid(self, sample_chunks, sample_experiences):
@@ -139,3 +154,31 @@ class TestFilterValidQuestions:
         ]
         result = filter_valid_questions(questions, sample_chunks, sample_experiences)
         assert len(result) == 3
+
+    def test_all_invalid(self, sample_chunks, sample_experiences):
+        questions = [
+            _make_question(
+                text=f"Q{i}?",
+                evidence=[{"kind": "chunk", "ref_id": "p1-readme-01", "quote": "completely fake quote"}],
+            )
+            for i in range(3)
+        ]
+        result = filter_valid_questions(questions, sample_chunks, sample_experiences)
+        assert len(result) == 0
+
+    def test_mixed_chunk_and_experience(self, sample_chunks, sample_experiences):
+        chunk_q = _make_question(
+            text="Chunk Q?",
+            evidence=[{"kind": "chunk", "ref_id": "p1-readme-01", "quote": "React frontend"}],
+        )
+        exp_q = _make_question(
+            text="Exp Q?",
+            qtype=QuestionType.EXPERIENCE,
+            project_id=None,
+            evidence=[
+                {"kind": "chunk", "ref_id": "p1-readme-01", "quote": "PostgreSQL database"},
+                {"kind": "experience", "ref_id": "e_001", "quote": "design a schema for a social media application"},
+            ],
+        )
+        result = filter_valid_questions([chunk_q, exp_q], sample_chunks, sample_experiences)
+        assert len(result) == 2
