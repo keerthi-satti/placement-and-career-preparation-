@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Question",
+  "description": "A single generated interview question with hint and evidence. Produced by Task 3 (generation).",
+  "type": "object",
+  "required": ["id", "text", "hint", "type", "difficulty", "evidence"],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string",
+      "description": "The interview question as an interviewer would ask it."
+    },
+    "hint": {
+      "type": "string",
+      "description": "Topics to cover. NOT a model answer."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["project", "experience"],
+      "description": "Whether this is a project-based or experience-based question."
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": ["easy", "medium", "hard"]
+    },
+    "project_id": {
+      "type": ["string", "null"],
+      "description": "The project this question is about. Null for experience-based questions not tied to one project."
+    },
+    "evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["kind", "ref_id", "quote"],
+        "properties": {
+          "kind": {
+            "type": "string",
+            "enum": ["chunk", "experience"],
+            "description": "chunk = resume/readme/student text; experience = interview experience entry."
+          },
+          "ref_id": {
+            "type": "string",
+            "description": "chunk_id for kind=chunk, experience id for kind=experience."
+          },
+          "quote": {
+            "type": "string",
+            "description": "Exact text from the source (ignoring extra spaces and case). Must appear verbatim in the referenced text."
+          }
+        },
+        "additionalProperties": false
+      },
+      "description": "At least one evidence item. Project questions have one (chunk). Experience-based questions have two (chunk + experience)."
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "e_001",
+    "role": "Software Engineer Intern",
+    "company": "TechCorp",
+    "round": "Technical round 1",
+    "topic": "Databases",
+    "skills": ["PostgreSQL", "SQL", "Database Design"],
+    "question_text": "Asked to design a schema for a social media application with users, posts, comments, and likes. Follow-up: how would you handle indexing for fast feed retrieval?",
+    "year": 2025,
+    "source_url": "https://example.com/experiences/001"
+  },
+  {
+    "id": "e_002",
+    "role": "Software Engineer Intern",
+    "company": "StartupXYZ",
+    "round": "Technical round 2",
+    "topic": "Real-time Systems",
+    "skills": ["WebSocket", "Node.js", "Redis"],
+    "question_text": "Explained how they would scale a real-time chat system to handle 10,000 concurrent users. Discussed WebSocket connection management and Redis pub/sub for horizontal scaling.",
+    "year": 2025,
+    "source_url": "https://example.com/experiences/002"
+  },
+  {
+    "id": "e_003",
+    "role": "Frontend Engineer",
+    "company": "WebCo",
+    "round": "System Design",
+    "topic": "Frontend Architecture",
+    "skills": ["React", "JavaScript", "State Management"],
+    "question_text": "Asked about React component lifecycle, when to use useEffect vs useMemo, and how to avoid unnecessary re-renders in a complex component tree.",
+    "year": 2024,
+    "source_url": "https://example.com/experiences/003"
+  },
+  {
+    "id": "e_004",
+    "role": "Software Engineer Intern",
+    "company": "DataInc",
+    "round": "Technical round 1",
+    "topic": "API Design",
+    "skills": ["REST API", "Express.js", "Node.js"],
+    "question_text": "Asked to design a REST API for a task management application. Discussion around authentication, rate limiting, pagination, and error handling strategies.",
+    "year": 2025,
+    "source_url": "https://example.com/experiences/004"
+  },
+  {
+    "id": "e_005",
+    "role": "Backend Engineer",
+    "company": "CloudServ",
+    "round": "Technical round 2",
+    "topic": "DevOps",
+    "skills": ["Docker", "CI/CD", "PostgreSQL"],
+    "question_text": "Walked through setting up a CI/CD pipeline for a Node.js application with a PostgreSQL database, including database migrations and zero-downtime deployments.",
+    "year": 2024,
+    "source_url": "https://example.com/experiences/005"
+  }
+]

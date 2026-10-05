@@ -1,0 +1,34 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Feedback",
+  "description": "Student feedback after their interview. Produced by Task 6.",
+  "type": "object",
+  "required": ["resume_upload_id", "overall_score", "per_question"],
+  "properties": {
+    "resume_upload_id": {
+      "type": "string"
+    },
+    "overall_score": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "comment": {
+      "type": "string"
+    },
+    "per_question": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["question_id", "was_asked", "hint_helped"],
+        "properties": {
+          "question_id": { "type": "string" },
+          "was_asked": { "type": "boolean" },
+          "hint_helped": { "type": "boolean" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

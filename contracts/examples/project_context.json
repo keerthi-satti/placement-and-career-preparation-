@@ -1,0 +1,32 @@
+{
+  "project_id": "p1",
+  "project_name": "Expense Tracker",
+  "input_quality": "ok",
+  "needs_student_input": false,
+  "evidence_chunks": [
+    {
+      "chunk_id": "p1-resume-01",
+      "project_id": "p1",
+      "source": "resume",
+      "text": "Built a full-stack web application to track personal expenses with category-based analytics and monthly budget alerts."
+    },
+    {
+      "chunk_id": "p1-readme-01",
+      "project_id": "p1",
+      "source": "readme",
+      "text": "Tech stack: React frontend, Express.js REST API, PostgreSQL database. Deployed on Railway."
+    },
+    {
+      "chunk_id": "p1-readme-02",
+      "project_id": "p1",
+      "source": "readme",
+      "text": "Users can create accounts, add expenses with custom categories, view spending trends via Chart.js visualizations, and set monthly budgets per category."
+    },
+    {
+      "chunk_id": "p1-readme-03",
+      "project_id": "p1",
+      "source": "readme",
+      "text": "The app uses PostgreSQL with a nightly backup job and stores user expenses in a normalized schema with categories, merchants, and recurring transactions."
+    }
+  ]
+}

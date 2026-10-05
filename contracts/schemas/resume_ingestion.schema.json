@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ResumeIngestion",
+  "description": "Top-level output from resume ingestion (Task 1).",
+  "type": "object",
+  "required": ["resume_upload_id", "skills", "projects", "warnings"],
+  "properties": {
+    "resume_upload_id": {
+      "type": "string"
+    },
+    "skills": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["project_id", "name", "description_text"],
+        "properties": {
+          "project_id": { "type": "string" },
+          "name": { "type": "string" },
+          "description_text": { "type": "string" },
+          "repo_url": { "type": ["string", "null"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

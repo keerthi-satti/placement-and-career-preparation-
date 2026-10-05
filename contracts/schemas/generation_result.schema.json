@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "GenerationResult",
+  "description": "Return type for generate_questions() called by Task 4.",
+  "type": "object",
+  "required": ["questions", "warnings", "insufficient_input"],
+  "properties": {
+    "questions": {
+      "type": "array",
+      "items": { "$ref": "question.schema.json" }
+    },
+    "warnings": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "insufficient_input": {
+      "type": "boolean",
+      "description": "True if fewer than ~5 valid questions could be grounded in evidence."
+    },
+    "reason": {
+      "type": ["string", "null"],
+      "description": "Explanation when insufficient_input is true."
+    }
+  },
+  "additionalProperties": false
+}

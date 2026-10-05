@@ -1,0 +1,20 @@
+{
+  "questions": [
+    {
+      "id": "q_more_001",
+      "text": "What would change about your database schema if you needed to support multiple currencies in the expense tracker?",
+      "hint": "Think about data types, conversion rates, and how this affects your queries.",
+      "type": "project",
+      "difficulty": "hard",
+      "project_id": "p1",
+      "evidence": [
+        {
+          "kind": "chunk",
+          "ref_id": "p1-readme-02",
+          "quote": "add expenses with custom categories"
+        }
+      ]
+    }
+  ],
+  "exhausted": false
+}

@@ -1,0 +1,9 @@
+[
+  {
+    "project_id": "p_empty",
+    "project_name": "Empty Project",
+    "input_quality": "missing",
+    "needs_student_input": true,
+    "evidence_chunks": []
+  }
+]

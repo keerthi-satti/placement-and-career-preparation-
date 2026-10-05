@@ -1,0 +1,11 @@
+{
+  "id": "e_456",
+  "role": "Software Engineer Intern",
+  "company": "ExampleCorp",
+  "round": "Technical round 1",
+  "topic": "Databases",
+  "skills": ["PostgreSQL", "SQL"],
+  "question_text": "Asked how to speed up a slow query that joined three tables with millions of rows. Follow-up: what indexes would you add and why?",
+  "year": 2025,
+  "source_url": "https://example.com/interview-experiences/456"
+}

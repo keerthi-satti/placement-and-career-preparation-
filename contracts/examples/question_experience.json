@@ -1,0 +1,20 @@
+{
+  "id": "q_exp_001",
+  "text": "Your expense tracker joins multiple tables for analytics. How would you approach optimizing a slow query that joins your expenses, categories, and merchants tables?",
+  "hint": "Discuss indexing strategies, query planning, and when you might denormalize.",
+  "type": "experience",
+  "difficulty": "hard",
+  "project_id": null,
+  "evidence": [
+    {
+      "kind": "chunk",
+      "ref_id": "p1-readme-03",
+      "quote": "normalized schema with categories, merchants, and recurring transactions"
+    },
+    {
+      "kind": "experience",
+      "ref_id": "e_456",
+      "quote": "Asked how to speed up a slow query that joined three tables with millions of rows"
+    }
+  ]
+}

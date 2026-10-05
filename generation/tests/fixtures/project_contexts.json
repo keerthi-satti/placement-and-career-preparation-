@@ -1,0 +1,74 @@
+[
+  {
+    "project_id": "p1",
+    "project_name": "Expense Tracker",
+    "input_quality": "ok",
+    "needs_student_input": false,
+    "evidence_chunks": [
+      {
+        "chunk_id": "p1-resume-01",
+        "project_id": "p1",
+        "source": "resume",
+        "text": "Built a full-stack web application to track personal expenses with category-based analytics and monthly budget alerts."
+      },
+      {
+        "chunk_id": "p1-readme-01",
+        "project_id": "p1",
+        "source": "readme",
+        "text": "Tech stack: React frontend, Express.js REST API, PostgreSQL database. Deployed on Railway."
+      },
+      {
+        "chunk_id": "p1-readme-02",
+        "project_id": "p1",
+        "source": "readme",
+        "text": "Users can create accounts, add expenses with custom categories, view spending trends via Chart.js visualizations, and set monthly budgets per category."
+      },
+      {
+        "chunk_id": "p1-readme-03",
+        "project_id": "p1",
+        "source": "readme",
+        "text": "The app uses PostgreSQL with a nightly backup job and stores user expenses in a normalized schema with categories, merchants, and recurring transactions."
+      }
+    ]
+  },
+  {
+    "project_id": "p2",
+    "project_name": "Chat Application",
+    "input_quality": "ok",
+    "needs_student_input": false,
+    "evidence_chunks": [
+      {
+        "chunk_id": "p2-resume-01",
+        "project_id": "p2",
+        "source": "resume",
+        "text": "Real-time chat application with WebSocket support, user authentication, and persistent message history."
+      },
+      {
+        "chunk_id": "p2-readme-01",
+        "project_id": "p2",
+        "source": "readme",
+        "text": "Built with Node.js and Socket.io for real-time communication. Uses Redis for session storage and message caching."
+      },
+      {
+        "chunk_id": "p2-readme-02",
+        "project_id": "p2",
+        "source": "readme",
+        "text": "Features include private messaging, group chats, typing indicators, read receipts, and file sharing up to 10MB."
+      }
+    ]
+  },
+  {
+    "project_id": "p3",
+    "project_name": "Portfolio Website",
+    "input_quality": "thin",
+    "needs_student_input": true,
+    "evidence_chunks": [
+      {
+        "chunk_id": "p3-resume-01",
+        "project_id": "p3",
+        "source": "resume",
+        "text": "Personal portfolio website showcasing projects and blog posts."
+      }
+    ]
+  }
+]

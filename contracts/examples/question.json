@@ -1,0 +1,15 @@
+{
+  "id": "q_789",
+  "text": "Why did you pick PostgreSQL over a simpler database for the expense tracker?",
+  "hint": "Talk about the data you stored, any relations between tables, and what you traded off.",
+  "type": "project",
+  "difficulty": "medium",
+  "project_id": "p1",
+  "evidence": [
+    {
+      "kind": "chunk",
+      "ref_id": "p1-readme-03",
+      "quote": "The app uses PostgreSQL with a nightly backup job"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "ExperienceEntry",
+  "description": "A single interview experience entry from the corpus (Task 2).",
+  "type": "object",
+  "required": ["id", "role", "company", "round", "topic", "skills", "question_text", "year", "source_url"],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "role": {
+      "type": "string",
+      "description": "The role the interview was for, e.g. 'Software Engineer Intern'."
+    },
+    "company": {
+      "type": "string"
+    },
+    "round": {
+      "type": "string",
+      "description": "Which interview round, e.g. 'Technical round 1'."
+    },
+    "topic": {
+      "type": "string",
+      "description": "Main topic area, e.g. 'Databases', 'System Design'."
+    },
+    "skills": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "question_text": {
+      "type": "string",
+      "description": "What was asked or experienced, written as a description (not a direct quote if copyrighted)."
+    },
+    "year": {
+      "type": "integer",
+      "minimum": 2000,
+      "maximum": 2100
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "additionalProperties": false
+}

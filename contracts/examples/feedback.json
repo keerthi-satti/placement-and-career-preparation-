@@ -1,0 +1,9 @@
+{
+  "resume_upload_id": "r_123",
+  "overall_score": 4,
+  "comment": "Two of the project questions came up in my real interview. The hint about talking about trade-offs was especially helpful.",
+  "per_question": [
+    {"question_id": "q_789", "was_asked": true, "hint_helped": true},
+    {"question_id": "q_exp_001", "was_asked": false, "hint_helped": false}
+  ]
+}

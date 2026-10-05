@@ -1,0 +1,6 @@
+{
+  "chunk_id": "p1-readme-03",
+  "project_id": "p1",
+  "source": "readme",
+  "text": "The app uses PostgreSQL with a nightly backup job and stores user expenses in a normalized schema with categories, merchants, and recurring transactions."
+}

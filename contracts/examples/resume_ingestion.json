@@ -1,0 +1,19 @@
+{
+  "resume_upload_id": "r_123",
+  "skills": ["Python", "React", "PostgreSQL", "Express.js", "JavaScript", "SQL"],
+  "projects": [
+    {
+      "project_id": "p1",
+      "name": "Expense Tracker",
+      "description_text": "Built a full-stack web application to track personal expenses with category-based analytics and monthly budget alerts.",
+      "repo_url": "https://github.com/example-user/expense-tracker"
+    },
+    {
+      "project_id": "p2",
+      "name": "Chat Application",
+      "description_text": "Real-time chat app with WebSocket support, user authentication, and message history.",
+      "repo_url": "https://github.com/example-user/chat-app"
+    }
+  ],
+  "warnings": []
+}
