@@ -19,7 +19,7 @@ import re
 import uuid
 from typing import Optional
 
-from .evidence_checker import check_question_evidence, filter_valid_questions
+from .evidence_checker import check_question_evidence, filter_valid_questions, normalize_text
 from .llm_client import LLMCaller
 from .models import (
     Difficulty,
@@ -50,11 +50,6 @@ INSUFFICIENT_THRESHOLD = 5
 
 
 # --- Helpers ---
-
-
-def _normalize(text: str) -> str:
-    """Normalize text for comparison: lowercase, collapse whitespace."""
-    return re.sub(r"\s+", " ", text.lower().strip())
 
 
 def _generate_id() -> str:
@@ -92,9 +87,9 @@ def _resolve_quote_to_chunk(quote: str, chunks: list[EvidenceChunk]) -> Optional
     Find which chunk_id contains the given quote.
     Returns the chunk_id or None if no match.
     """
-    quote_norm = _normalize(quote)
+    quote_norm = normalize_text(quote)
     for chunk in chunks:
-        if quote_norm in _normalize(chunk.text):
+        if quote_norm in normalize_text(chunk.text):
             return chunk.chunk_id
     return None
 
@@ -104,8 +99,8 @@ def _questions_are_similar(q1: Question, q2: Question) -> bool:
     Check if two questions are semantically similar (reworded versions).
     Uses word overlap as a simple heuristic.
     """
-    words1 = set(_normalize(q1.text).split())
-    words2 = set(_normalize(q2.text).split())
+    words1 = set(normalize_text(q1.text).split())
+    words2 = set(normalize_text(q2.text).split())
     # Remove common stop words
     stop_words = {"a", "an", "the", "is", "are", "was", "were", "be", "been",
                   "being", "have", "has", "had", "do", "does", "did", "will",
@@ -622,7 +617,10 @@ def generate_more(
             new_questions = []
 
     if not new_questions and not llm_caller:
-        # Stub mode: generate from unused evidence
+        # Stub mode: if all evidence is already used, we can't produce new questions
+        if all_evidence_used:
+            return GenerateMoreResult(questions=[], exhausted=True)
+        # Generate from unused evidence
         for chunk in unused_chunks[:5]:
             q = Question(
                 id=_generate_id(),

@@ -18,7 +18,7 @@ from .models import (
 )
 
 
-def _normalize(text: str) -> str:
+def normalize_text(text: str) -> str:
     """Normalize text for comparison: lowercase, collapse whitespace."""
     return re.sub(r"\s+", " ", text.lower().strip())
 
@@ -42,13 +42,17 @@ def check_question_evidence(
         True if all evidence is valid, False otherwise.
     """
     for ev in question.evidence:
-        quote_norm = _normalize(ev.quote)
+        quote_norm = normalize_text(ev.quote)
+
+        # Empty quotes cannot validate evidence — reject them
+        if not quote_norm:
+            return False
 
         if ev.kind.value == "chunk":
             chunk = chunks.get(ev.ref_id)
             if chunk is None:
                 return False
-            source_norm = _normalize(chunk.text)
+            source_norm = normalize_text(chunk.text)
             if quote_norm not in source_norm:
                 return False
 
@@ -56,7 +60,7 @@ def check_question_evidence(
             exp = experiences.get(ev.ref_id)
             if exp is None:
                 return False
-            source_norm = _normalize(exp.question_text)
+            source_norm = normalize_text(exp.question_text)
             if quote_norm not in source_norm:
                 return False
 

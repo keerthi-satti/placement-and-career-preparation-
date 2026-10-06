@@ -119,12 +119,18 @@ class TestCheckQuestionEvidence:
         assert check_question_evidence(q, sample_chunks, sample_experiences) is True
 
     def test_empty_quote(self, sample_chunks, sample_experiences):
-        """An empty quote should technically match (empty string is in everything)."""
+        """An empty quote should fail — it provides no evidence."""
         q = _make_question(
             evidence=[{"kind": "chunk", "ref_id": "p1-readme-01", "quote": ""}]
         )
-        # Empty quote normalized is "", which is in any text
-        assert check_question_evidence(q, sample_chunks, sample_experiences) is True
+        assert check_question_evidence(q, sample_chunks, sample_experiences) is False
+
+    def test_whitespace_only_quote(self, sample_chunks, sample_experiences):
+        """A whitespace-only quote should fail — it provides no evidence."""
+        q = _make_question(
+            evidence=[{"kind": "chunk", "ref_id": "p1-readme-01", "quote": "   "}]
+        )
+        assert check_question_evidence(q, sample_chunks, sample_experiences) is False
 
 
 class TestFilterValidQuestions:
