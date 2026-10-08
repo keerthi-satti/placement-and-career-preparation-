@@ -15,9 +15,27 @@ def test_auth_endpoints():
 
 
 def test_upload_and_list():
-    assert client.post("/resumes").json()["resume_upload_id"] == "r_123"
-    assert len(client.get("/resumes").json()) >= 1
 
+    with open("tests/sample_resumes/resume_01_standard.pdf", "rb") as file:
+        response = client.post(
+            "/resumes",
+            files={
+                "file": (
+                    "resume_01_standard.pdf",
+                    file,
+                    "application/pdf"
+                )
+            }
+        )
+
+    assert response.status_code == 200
+
+    data = response.json()
+
+    assert "resume_upload_id" in data
+    assert data["status"] == "processed"
+    assert "skills" in data
+    assert "projects" in data
 
 def test_question_set_shape():
     data = client.get("/resumes/r_123/question-set").json()
